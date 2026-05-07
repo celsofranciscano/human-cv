@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human CV | Suite de RRHH</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts: Outfit (Moderno) & Inter (Lectura) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Outfit", "sans-serif"],
+          },
+          extend: {
+            colors: {
+              dark: {
+                bg: "#050505", // Negro profundo
+                card: "#0F1115", // Gris muy oscuro
+                border: "#1F2937", // Borde sutil
+              },
+              brand: {
+                primary: "#3B82F6", // Azul eléctrico
+                secondary: "#8B5CF6", // Violeta
+                accent: "#06B6D4", // Cyan
+              },
+            },
+            animation: {
+              "gradient-x": "gradient-x 15s ease infinite",
+              float: "float 6s ease-in-out infinite",
+            },
+            keyframes: {
+              "gradient-x": {
+                "0%, 100%": { "background-position": "0% 50%" },
+                "50%": { "background-position": "100% 50%" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Estilos Base */
+      body {
+        background-color: #050505;
+        color: #f3f4f6;
+        overflow-x: hidden;
+      }
+
+      /* Fondo Animado Sutil */
+      .bg-gradient-mesh {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        background:
+          radial-gradient(
+            circle at 15% 50%,
+            rgba(59, 130, 246, 0.08),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 85% 30%,
+            rgba(139, 92, 246, 0.08),
+            transparent 25%
+          );
+      }
+
+      /* Tarjeta Premium */
+      .premium-card {
+        background: rgba(15, 17, 21, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Efecto Hover Brillante */
+      .premium-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.03),
+          transparent
+        );
+        transform: translateX(-100%);
+        transition: 0.6s;
+      }
+
+      .premium-card:hover::before {
+        transform: translateX(100%);
+      }
+
+      .premium-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Iconos con Glow */
+      .icon-glow {
+        transition: all 0.3s ease;
+      }
+      .premium-card:hover .icon-glow {
+        text-shadow: 0 0 15px currentColor;
+        transform: scale(1.1);
+      }
+
+      /* Botón Principal Animado */
+      .btn-animated {
+        background-size: 200% auto;
+        background-image: linear-gradient(
+          to right,
+          #3b82f6 0%,
+          #8b5cf6 51%,
+          #3b82f6 100%
+        );
+        transition: 0.5s;
+      }
+      .btn-animated:hover {
+        background-position: right center;
+      }
+    </style>
+  </head>
+
+  <body class="antialiased selection:bg-brand-primary selection:text-white">
+    <!-- FONDO -->
+    <div class="bg-gradient-mesh"></div>
+
+    <!-- NAVBAR -->
+    <nav
+      class="fixed w-full z-50 top-0 border-b border-white/5 bg-dark-bg/80 backdrop-blur-md"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3 group cursor-pointer">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-primary/20 group-hover:scale-105 transition-transform"
+          >
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <span class="text-xl font-display font-bold tracking-wide text-white"
+            >Human<span class="text-brand-primary">CV</span></span
+          >
+        </div>
+
+        <div
+          class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400"
+        >
+          <a href="#" class="hover:text-white transition">Dashboard</a>
+          <a href="#" class="hover:text-white transition">Reportes</a>
+          <a href="#" class="hover:text-white transition">Configuración</a>
+        </div>
+
+        <button
+          class="px-5 py-2 rounded-full border border-white/10 text-sm font-semibold hover:bg-white/5 hover:border-white/30 transition text-white"
+        >
+          <i class="fa-regular fa-user mr-2"></i> Perfil
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-20 px-6 text-center max-w-5xl mx-auto">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-brand-accent uppercase tracking-widest mb-8 animate-float"
+      >
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+        Sistema Activo v2.6
+      </div>
+
+      <h1
+        class="text-5xl md:text-7xl font-display font-extrabold leading-tight mb-8 text-white"
+      >
+        Gestión de Talento <br />
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent animate-gradient-x bg-[length:200%_auto]"
+        >
+          Inteligente & Humana
+        </span>
+      </h1>
+
+      <p
+        class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed"
+      >
+        Centraliza la operación de Recursos Humanos en una sola interfaz.
+        Analítica predictiva, nómina automatizada y desarrollo de carrera.
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a
+          href="#modulos"
+          class="btn-animated px-8 py-4 rounded-xl font-bold text-lg text-white shadow-lg shadow-brand-primary/25 hover:shadow-brand-primary/40 transition-all transform hover:-translate-y-1"
+        >
+          Explorar Módulos
+        </a>
+      </div>
+    </header>
+
+    <!-- GRID DE MÓDULOS -->
+    <section id="modulos" class="py-20 px-6 relative z-10">
+      <div class="max-w-7xl mx-auto">
+        <div
+          class="flex justify-between items-end mb-12 border-b border-white/5 pb-6"
+        >
+          <div>
+            <h2 class="text-3xl font-display font-bold text-white">
+              Módulos del Sistema
+            </h2>
+            <p class="text-gray-500 mt-2">
+              Acceso directo a los dashboards operativos.
+            </p>
+          </div>
+          <div class="hidden md:block text-right text-sm text-gray-500">
+            <i class="fa-solid fa-shield-halved mr-2"></i> Conexión Segura SSL
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          id="cards-container"
+        >
+          <!-- Las tarjetas se generan aquí abajo con enlaces seguros -->
+
+          <!-- Card 1 -->
+          <a
+            href="https://modulo1-8dem.vercel.app/"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Reclutamiento"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl border border-blue-500/20"
+              >
+                <i class="fa-solid fa-user-plus"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors"
+            >
+              Reclutamiento
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              ATS, embudo de candidatos y análisis de fuentes de contratación.
+            </p>
+          </a>
+
+          <!-- Card 2 -->
+          <a
+            href="https://rrhh.alvant.net/dashboard/2"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Nómina"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center text-xl border border-green-500/20"
+              >
+                <i class="fa-solid fa-money-bill-wave"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors"
+            >
+              Nómina
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Procesamiento de pagos, impuestos y estructura salarial.
+            </p>
+          </a>
+
+          <!-- Card 3 -->
+          <a
+            href="https://modulo3-grupo3.surge.sh"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Formación"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl border border-purple-500/20"
+              >
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors"
+            >
+              Formación
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              LMS, planes de carrera y seguimiento de habilidades.
+            </p>
+          </a>
+
+          <!-- Card 4 -->
+          <a
+            href="https://brilliant-treacle-a52ba9.netlify.app/"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Desempeño"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center text-xl border border-red-500/20"
+              >
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors"
+            >
+              Desempeño
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Evaluación 360°, OKRs y feedback continuo.
+            </p>
+          </a>
+
+          <!-- Card 5 -->
+          <a
+            href="https://eloquent-pavlova-5e499d.netlify.app/"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Clima"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-xl border border-yellow-500/20"
+              >
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors"
+            >
+              Clima Org.
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Encuestas de satisfacción, eNPS y bienestar.
+            </p>
+          </a>
+
+          <!-- Card 6 -->
+          <a
+            href="https://fanciful-frangipane-600981.netlify.app/"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Asistencia"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl border border-indigo-500/20"
+              >
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors"
+            >
+              Asistencia
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Control de tiempos, turnos rotativos y ausentismo.
+            </p>
+          </a>
+
+          <!-- Card 7 -->
+          <a
+            href="https://modulo-7.pages.dev/"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Compensación"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl border border-pink-500/20"
+              >
+                <i class="fa-solid fa-gift"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors"
+            >
+              Compensación
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Salario variable, bonos por objetivos y beneficios.
+            </p>
+          </a>
+
+          <!-- Card 8 -->
+          <a
+            href="https://dash-board-modelo-8.vercel.app/"
+            target="_blank"
+            class="card-link premium-card rounded-2xl p-6 group"
+            data-fallback="Planificación"
+          >
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="icon-glow w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl border border-cyan-500/20"
+              >
+                <i class="fa-solid fa-chess-knight"></i>
+              </div>
+              <i
+                class="fa-solid fa-arrow-up-right-from-square text-gray-600 group-hover:text-white transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors"
+            >
+              Planificación
+            </h3>
+            <p class="text-sm text-gray-400 leading-relaxed">
+              Headcount, organigrama y proyección de fuerza laboral.
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer
+      class="border-t border-white/5 bg-black py-12 text-center relative z-10"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6"
+      >
+        <div class="flex items-center gap-2 opacity-80">
+          <i class="fa-solid fa-layer-group text-brand-primary"></i>
+          <span class="font-display font-bold text-lg">Human CV</span>
+        </div>
+        <p class="text-gray-500 text-sm">
+          &copy; 2026 Human CV System. Diseñado para la excelencia operativa.
+        </p>
+        <div class="flex gap-4 text-gray-400">
+          <a href="#" class="hover:text-white transition"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+          <a href="#" class="hover:text-white transition"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a href="#" class="hover:text-white transition"
+            ><i class="fa-brands fa-linkedin"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SCRIPT ANTI-URLS MUERTAS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll(".card-link");
+
+        links.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const url = this.getAttribute("href");
+            const moduleName = this.getAttribute("data-fallback");
+
+            // Si la URL está vacía o es nula
+            if (!url || url === "#" || url === "") {
+              e.preventDefault();
+
+              // Opción A: Mostrar alerta bonita
+              // alert(`El módulo de ${moduleName} está actualmente en mantenimiento o la URL no está configurada.`);
+
+              // Opción B (MEJOR): Redirigir a un Dashboard Genérico de Demostración
+              // Usamos un dashboard público de ejemplo para que el usuario vea "algo" bonito
+              const demoUrl = `https://app.powerbi.com/view?r=eyJrIjoiODk2ZjQzN2UtM2Y0Zi00ZGE5LWJkNzMtN2Q1Y2Q5Y2Y5Y2Q5IiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9`;
+
+              window.open(demoUrl, "_blank");
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
